@@ -27,7 +27,7 @@ function [xmin,fmin,flag] = langrangien(f,c,tau,mu0,x0,lambda0,epsi0,itmax)
         options = optimoptions('fminunc','MaxIter',itmax,'TolFun',epsi,'TolX',epsi);
         [x,fval,exitflag,output,grad,hessian] = fminunc(L,x0,options);
     
-        if(norm(grad,2))
+        if(norm(grad,2)<=epsi(k))
             break;
         end;
         

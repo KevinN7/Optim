@@ -14,7 +14,7 @@ x(:,k + 1) = x(:,k) + s(k)*d(:,k);
 k = k + 1;
 
 
-while( k<=itmax && norm(x(:,k)-x(:,k-1))>epsi && norm(gradx)>epsi)
+while( k<=itmax && (norm(x(:,k)-x(:,k-1))/norm(x(:,k)))>epsi && norm(gradx)>epsi)
     gradx = feval(g,x(:,k));
     d(:,k) = -feval(h,x(:,k))\gradx;
     s(k) = bissection(f,g,x(:,k),d(:,k),feval(g,x(:,k)),feval(f,x(:,k)),c1,c2,itmax,epsi);

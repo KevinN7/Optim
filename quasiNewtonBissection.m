@@ -14,7 +14,7 @@ y(:,k) =  feval(g,x(:,k+1)) - feval(g,x(:,k));
 H(:,:,k+1) = (eye(2) - (d(:,k)*y(:,k)')/(d(:,k)'*y(:,k))) * H(:,:,k) * (eye(2) - (y(:,k)*d(:,k)'/(d(:,k)'*y(:,k))) )+s(k)*(d(:,k)*d(:,k)'/(d(:,k)'*y(:,k)));
 
 k = k + 1;
-while( k<=itmax && norm(x(:,k)-x(:,k-1))>epsi )
+while( k<=itmax && (norm(x(:,k)-x(:,k-1))/norm(x(:,k)))>epsi )
     d(:,k) = -H(:,:,k)* feval(g,x(:,k));
     s(k) = bissection(f,g,x(:,k),d(:,k),feval(g,x(:,k)),feval(f,x(:,k)),c1,c2,itmax,epsi);
     x(:,k + 1) = x(:,k) + s(k)*d(:,k);
