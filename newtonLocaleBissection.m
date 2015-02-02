@@ -1,7 +1,7 @@
 %flag : 0 Converge
 %flag : 1 nombre Max Iteration
 
-function [x,fx,flag] = newtonLocaleBissection(f,g,h,x0,epsi,itmax,c1,c2)
+function [xres,fx,flag] = newtonLocaleBissection(f,g,h,x0,epsi,itmax,c1,c2)
 
 global nout;
 
@@ -38,5 +38,5 @@ elseif( norm(x(:,k)-x(:,k-1))<=epsi )
 else
 end;
 
-x = x(:,k);
-fx = feval(f,x);
+xres = x(:,k);
+fx = feval(f,xres);

@@ -1,6 +1,6 @@
 %x0 vecteur colonne
 
-function [x,fx,flag] = quasiNewton(f,g,h,x0,epsi,itmax)
+function [xres,fx,flag] = quasiNewton(f,g,H0,x0,epsi,itmax)
 
 global nout;
 
@@ -27,11 +27,15 @@ end;
 
 if(k>itmax)
     %Limite iteration atteinte
-    flag=1;
-else
-    %Critere atteint
     flag=0;
+elseif( (norm(x(:,k-1)-x(:,k-2))/norm(x(:,k-1)))>epsi )
+    %Stagnatiojn de x
+    %Variation de x trop petite
+    flag=2;
+else
+    flag=42;
 end;
 
-x = x(:,k);
+
+xres = x(:,k);
 fx = feval(f,x(:,k));

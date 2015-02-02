@@ -17,26 +17,32 @@ function [xmin,fmin,flag] = langrangien(f,c,tau,mu0,x0,lambda0,epsi0,itmax)
     epsi(k) = epsi0;
     k = k+1;
     
+    options = optimoptions('fminunc','MaxIter',itmax,'TolFun',epsi,'TolX',epsi);
+    
     convergence = false;
     
     while(~convergence)
         L = @(u) f(u) + lambda(:,k)'*c(u) + mu(k)*(norm(c(u),2)^2)/2;
-    
-    %[x(:,k+1),fx,flag]= newtonLocaleBacktravk(L,g,h,x0,epsi,itmax,rho,c1);
-    %[x,fval,flag,output,grad] = fminunc(L)
-        options = optimoptions('fminunc','MaxIter',itmax,'TolFun',epsi,'TolX',epsi);
+        
+        xprec = x;
         [x,fval,exitflag,output,grad,hessian] = fminunc(L,x0,options);
     
         if(norm(grad,2)<=epsi(k))
+            if(mu(k)>=0 && mu*norm(c(x),2) <= epsi)
+                flag = 1;
+                xmin = x;
+                fmin = fval;
+            else
+                flag = 0;
+            end;
             break;
         end;
         
-    %Tester la convergence
-    %convergence = ;
+        %Tester la convergence
+        %convergence = mu(k)>=0 && mu*norm(c(x),2) <= epsi && norm(grad,2)<=epsi(k);
     
-        %if(norm(h(x(:,k)),2))
         if(norm(hessian,2)<=etha(k)) 
-            lambda(:,k+1) = lambda(:,k) + mu(k) * h(x(k));
+            lambda(:,k+1) = lambda(:,k) + mu(k) * h(xprec);
             mu(k+1) = mu(k);
             epsi(k+1) = epsi(k) / mu(k);
             etha(k+1) = etha(k) / mu(k)^beta;

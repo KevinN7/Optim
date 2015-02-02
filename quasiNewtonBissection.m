@@ -25,12 +25,15 @@ while( k<=itmax && (norm(x(:,k)-x(:,k-1))/norm(x(:,k)))>epsi )
 end;
 
 
+
 if(k>itmax)
     %Limite iteration atteinte
-    flag=1;
-else
-    %Critere atteint
     flag=0;
+elseif( (norm(x(:,k)-x(:,k-1))/norm(x(:,k)))>epsi )
+    %Stagnatiojn de x
+    %Variation de x trop petite
+    flag=2;
+else
 end;
 
 
