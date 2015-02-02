@@ -1,7 +1,7 @@
 %flag : 0 Converge
 %flag : 1 nombre Max Iteration
 
-function [x,fx,flag] = newtonLocaleInterpol(f,g,h,x0,epsi,itmax,c1,s0)
+function [xmin,fx,flag] = newtonLocaleInterpol(f,g,h,x0,epsi,itmax,c1,s0)
 
 global nout;
 
@@ -36,5 +36,5 @@ elseif( norm(x(:,k)-x(:,k-1))<=epsi )
 else
 end;
 
-x = x(:,k);
-fx = feval(f,x);
+xmin = x(:,k);
+fx = feval(f,xmin);

@@ -30,8 +30,10 @@ while(~finie)
     
     if(k>itmax)
         finie = true;
+        res=0;
         flag = 5;
     end;
+    k = k+1;
     
 end;
 

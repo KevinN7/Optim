@@ -44,6 +44,7 @@ while(critere)
       s2 = beta;
     else
       merde = true;
+      s2 = -1;
     end;
 
     if(feval(f,x + s2*d) <= phi_0 + c1*s2*phid_s0 && ~merde)
@@ -51,6 +52,7 @@ while(critere)
          return;
     else
         if(abs(s1-s2)<=epsi)
+            pas = 0;
             critere = false;
             flag = 5;
         end;
@@ -61,6 +63,7 @@ while(critere)
     k=k+1;
     if(k>=itmax)
         critere = false;
+        pas = 0;
         flag = 5;
     end;
     

@@ -31,11 +31,12 @@ if(k>itmax)
 elseif( norm(gradx)<=epsi )
     %Amplitude gradient trop petite
     flag=1;
-elseif( norm(x(:,k)-x(:,k-1))<=epsi )
+elseif( (norm(x(:,k)-x(:,k-1))/norm(x(:,k)))<=epsi )
     %Stagnatiojn de x
     %Variation de x trop petite
     flag=2;
 else
+    flag=42;
 end;
 
 xres = x(:,k);
