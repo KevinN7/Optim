@@ -1,20 +1,22 @@
-function s = approche(i,x,d,s1,c1,c2,smax)
+function s = approche(f,g,x,d,s1,c1,c2,smax,itmax)
 
+s(1) = 0;
+i = 2;
+s(i) = s1;
 finie = false;
-i = 1;
 
 while(~finie)
-    if( (f(i,x+s(i)*d) > f(i,x) + c1*s(i)*d'*gradient(i,x)) ||( i>1 && f(i,x+s(i)*d) >= f(i,x+s(i-1)*d) ) )
-        res = finition();
+    if( (feval(f,x+s(i)*d) > feval(f,x) + c1*s(i)*d'*feval(g,x)) ||( i>1 && feval(f,x+s(i)*d) >= feval(f,x+s(i-1)*d) ) )
+        res = finition(f,g,x,d,c1,c2,s(i-1),s(i),itmax);
         finie = true;
-    elseif(abs(d'*gradient(i,x+s(i)*d))<=-c2*d'*gradient(i,x))
+    elseif(abs(d'*feval(g,x+s(i)*d))<=-c2*d'*feval(g,x))
         res = s(i);
         finie = true;
-    elseif(d'*f(i,x+s(i)*d)>=0)
-        res = finition();
+    elseif(d'*feval(f,x+s(i)*d)>=0)
+        res = finition(f,g,x,d,c1,c2,s(i),s(i-1),itmax);
         finie = true;
     else
-        %choix si
+        s(i+1) = s(i)+(smax-s(i))*rand(1);
         i = i+1;
     end;
 end;

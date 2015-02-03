@@ -1,9 +1,10 @@
 %Lagrangien
 
 function [xmin,fmin,flag] = langrangien(f,c,tau,mu0,x0,lambda0,epsi0,itmax)
-    
+    mu = zeros(itmax);
     %Parametre recherche min sans contrainte
-    c1 = 0.7;
+    c1 = 0.1;
+    c2 = 0.7;
     itmax = 200;
     epsi =0.1;
     
@@ -15,7 +16,7 @@ function [xmin,fmin,flag] = langrangien(f,c,tau,mu0,x0,lambda0,epsi0,itmax)
     lambda(:,k) =  lambda0;
     x(:,k) = x0;
     epsi(k) = epsi0;
-    k = k+1;
+    %k = k+1;
     
     options = optimoptions('fminunc','MaxIter',itmax,'TolFun',epsi,'TolX',epsi);
     
@@ -28,7 +29,7 @@ function [xmin,fmin,flag] = langrangien(f,c,tau,mu0,x0,lambda0,epsi0,itmax)
         [x,fval,exitflag,output,grad,hessian] = fminunc(L,x0,options);
     
         if(norm(grad,2)<=epsi(k))
-            if(mu(k)>=0 && mu*norm(c(x),2) <= epsi)
+            if(mu(k)>=0 && mu(k)*norm(c(x),2) <= epsi)
                 flag = 1;
                 xmin = x;
                 fmin = fval;

@@ -42,6 +42,6 @@ size(Res)
 plot(G,Res(1,:));
 figure;
 plot(G,Res(3,:));
-figure;
-plot(G,Res(4,:),G,Res(5,:));
-hleg1 = legend('it interne','it externe');
+% figure;
+% plot(G,Res(4,:),G,Res(5,:));
+% hleg1 = legend('it interne','it externe');

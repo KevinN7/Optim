@@ -1,6 +1,6 @@
 %x0 vecteur colonne
 
-function [xmin,fx,flag] = quasiNewtonBissection(f,g,h,x0,H0,epsi,itmax,c1,c2)
+function [xmin,fx,flag] = quasiNewtonBissection(f,g,x0,H0,epsi,itmax,c1,c2)
 
 global nout;
 
@@ -34,6 +34,7 @@ elseif( (norm(x(:,k)-x(:,k-1))/norm(x(:,k)))>epsi )
     %Variation de x trop petite
     flag=2;
 else
+    flag=42;
 end;
 
 
