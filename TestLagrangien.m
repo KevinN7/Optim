@@ -3,7 +3,7 @@ fprintf('\n')
 fprintf('Standart :\n');
 
 f = 'f2';
-c = @(x1,x2) (x1^2) + (x2^2) - 1.5;
+c = 'c2';
 tau = 0.5;
 mu0 = 1;
 x0 = [1;1];

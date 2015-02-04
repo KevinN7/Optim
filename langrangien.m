@@ -14,7 +14,7 @@ function [xmin,fmin,flag] = langrangien(f,c,tau,mu0,x0,lambda0,epsi0,itmax)
     
     k = 1;
     lambda(:,k) =  lambda0;
-    x(:,k) = x0;
+    %x(:,k) = x0;
     epsi(k) = epsi0;
     %k = k+1;
     
@@ -24,9 +24,10 @@ function [xmin,fmin,flag] = langrangien(f,c,tau,mu0,x0,lambda0,epsi0,itmax)
     
     while(~convergence)
         L = @(u) f(u) + lambda(:,k)'*c(u) + mu(k)*(norm(c(u),2)^2)/2;
-        
+
+        x = x0;
         xprec = x;
-        [x,fval,exitflag,output,grad,hessian] = fminunc(L,x0,options);
+        [x,fval,exitflag,output,grad,hessian] = fminunc(L,x,options);
     
         if(norm(grad,2)<=epsi(k))
             if(mu(k)>=0 && mu(k)*norm(c(x),2) <= epsi)

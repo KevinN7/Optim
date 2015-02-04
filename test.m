@@ -4,21 +4,23 @@ global nhev;
 global nin;
 global nout;
 
+clear RES;
+
 %INIT
 
 %Paramere probleme
 f = 'f2';g = 'g2';h = 'h2';
 %x0 = [0;0];
-x0 = [10;10];
+%x0 = [10;10];
 %x0 = [0;1];
 %x0 = [1;0];
 %x0 = [1;3];
-%x0 = [3;1];
-H0 = eye(2);
+x0 = [3;1];
+H0 = feval(h,x0);
 
 %Parametre recherche lineaire
 rho = 0.5;  %contraction backtracking
-c1 =0.5;  %wolf1
+c1 =0.1;  %wolf1
 c2 =0.7;  %wolf2
 s0 = 0.5; %interpolation
 
@@ -127,14 +129,14 @@ nhev = 0;
 nin = 0;
 nout = 0;
 tic;
-[xmin,fx,flag] = newtonLocaleApprocheFinition(f,g,h,x0,epsi,itmax,c1,c2);
+%[xmin,fx,flag] = newtonLocaleApprocheFinition(f,g,h,x0,epsi,itmax,c1,c2);
 time = toc;
 fprintf('Temps:%f\n',time);
 fprintf('Iteration externe:%d  Iteration interne:%d  \n',nout,nin);
 fprintf('Appel fct:%d  Appel grad:%d  Appel Hessien:%d  \n',nfev,ngev,nhev);
 traiterFlag(flag)
 flor = (norm((xmin - [1;1])))/norm([1;1]);
-RES(:,5) = [ time; flor];
+%RES(:,5) = [ time; flor];
 
 
 
@@ -236,3 +238,8 @@ RES(:,8) = [ time; flor];
 
 
 RES
+
+figure;
+bar(RES(1,:));
+figure;
+bar(RES(2,:));

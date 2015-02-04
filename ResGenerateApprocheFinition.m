@@ -20,7 +20,6 @@ epsi = 10^-6;
 
 
 Xflor = [3;1];
-% cmpt = 1;
  for c1 = 0.1:0.1:0.9
      for c2 = (c1 + 0.1):0.1:1
              floor(c1*10)
@@ -29,15 +28,11 @@ Xflor = [3;1];
              [xres,fx,flag] = newtonLocaleApprocheFinition(f,g,h,Xflor,epsi,itmax,c1,c2)
              time = toc;
              Res2(floor(c1*10),floor(c2*10)) = (norm((xres - [1;1])))/norm([1;1]);
-            Res3(floor(c1*10),floor(c2*10)) = time;
-%              Res(2,cmpt) = flag;
-%              Res(1,cmpt) = time;
-%              Res(3,cmpt) = (norm((x - [1;1])))/norm([1;1]);
-%              Res(4,cmpt) = nin;
-%              Res(5,cmpt) = nout;
-%              cmpt = cmpt+1;
+             Res3(floor(c1*10),floor(c2*10)) = time;
+             Res4(floor(c1*10),floor(c2*10)) = flag;
      end;
 end;
 
 Res2
 Res3
+Res4
